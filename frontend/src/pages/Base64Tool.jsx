@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SEO from "../components/SEO";
+import Share from "../components/Share";
 import { track } from "../lib/analytics";
 import { useToast } from "../components/Toast";
 import { useI18n } from "../i18n";
@@ -50,6 +51,15 @@ export default function Base64Tool() {
         title={t("base64.title")}
         description={t("base64.description")}
         path="/base64"
+        image="https://toolsykit.vercel.app/og-base64.png"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          "name": t("base64.title"),
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Web",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        }}
       />
       <div className="space-y-4">
         <div className="space-y-1">
@@ -143,8 +153,9 @@ export default function Base64Tool() {
             <li>{t("base64.tips_3")}</li>
           </ul>
         </aside>
+
+        <Share titleKey="base64.title" path="/base64" />
       </div>
     </>
   );
 }
-

@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import SEO from "../components/SEO";
+import Share from "../components/Share";
 import { useI18n } from "../i18n";
 import { useToast } from "../components/Toast";
 import { track } from "../lib/analytics";
@@ -70,6 +71,15 @@ export default function Hash() {
         title={t("hash.title")}
         description={t("hash.description")}
         path="/hash"
+        image="https://toolsykit.vercel.app/og-hash.png"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          "name": t("hash.title"),
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Web",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        }}
       />
       <div className="space-y-6">
         <div className="space-y-1">
@@ -163,6 +173,7 @@ export default function Hash() {
             <div className="rounded border border-red-300 bg-red-50 p-2 text-sm text-red-700">{t("common.error")} {error}</div>
           )}
         </div>
+        <Share titleKey="hash.title" path="/hash" />
       </div>
     </>
   );

@@ -182,5 +182,11 @@
     "update_available": "Hay una nueva versión disponible.",
     "reload": "Recargar",
     "dismiss": "Cerrar"
+  },
+  "share": {
+    "share": "Compartir:",
+    "twitter": "Twitter/X",
+    "linkedin": "LinkedIn",
+    "reddit": "Reddit"
   }
 }

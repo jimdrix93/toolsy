@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import SEO from "../components/SEO";
+import Share from "../components/Share";
 import { useToast } from "../components/Toast";
 import { useI18n } from "../i18n";
 
@@ -173,6 +174,15 @@ export default function CsvJson() {
         title={t("csvjson.title")}
         description={t("csvjson.description")}
         path="/csv-json"
+        image="https://toolsykit.vercel.app/og-csvjson.png"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          "name": t("csvjson.title"),
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Web",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        }}
       />
 
       <div className="space-y-6">
@@ -314,8 +324,9 @@ export default function CsvJson() {
             <li>{t("csvjson.pretty_json")}: JSON</li>
           </ul>
         </aside>
+
+        <Share titleKey="csvjson.title" path="/csv-json" />
       </div>
     </>
   );
 }
-

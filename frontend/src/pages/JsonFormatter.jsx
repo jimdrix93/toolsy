@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import SEO from "../components/SEO";
+import Share from "../components/Share";
 import { track } from "../lib/analytics";
 import { useToast } from "../components/Toast";
 import { useI18n } from "../i18n";
@@ -123,6 +124,15 @@ export default function JsonFormatter() {
         title={t("json.title")}
         description={t("json.description")}
         path="/json-formatter"
+        image="https://toolsykit.vercel.app/og-json.png"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          "name": t("json.title"),
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Web",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        }}
       />
       <div className="relative z-0 space-y-6">
         <div className="space-y-1">
@@ -248,8 +258,9 @@ export default function JsonFormatter() {
             </li>
           </ul>
         </aside>
+
+        <Share titleKey="json.title" path="/json-formatter" />
       </div>
     </>
   );
 }
-

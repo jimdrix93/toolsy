@@ -4,5 +4,8 @@
   <url><loc>https://toolsykit.vercel.app/json-formatter</loc></url>
   <url><loc>https://toolsykit.vercel.app/base64</loc></url>
   <url><loc>https://toolsykit.vercel.app/csv-json</loc></url>
+  <url><loc>https://toolsykit.vercel.app/hash</loc></url>
+  <url><loc>https://toolsykit.vercel.app/uuid</loc></url>
   <url><loc>https://toolsykit.vercel.app/about</loc></url>
+  <url><loc>https://toolsykit.vercel.app/privacy</loc></url>
 </urlset>

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import SEO from "../components/SEO";
+import Share from "../components/Share";
 import { useI18n } from "../i18n";
 import { track } from "../lib/analytics";
 
@@ -53,6 +54,15 @@ export default function Uuid() {
         title={t("uuid.title")}
         description={t("uuid.description")}
         path="/uuid"
+        image="https://toolsykit.vercel.app/og-uuid.png"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          "name": t("uuid.title"),
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Web",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        }}
       />
       <div className="space-y-6">
         <div className="space-y-1">
@@ -102,6 +112,7 @@ export default function Uuid() {
             </button>
           </div>
         </div>
+        <Share titleKey="uuid.title" path="/uuid" />
       </div>
     </>
   );
