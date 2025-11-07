@@ -1,0 +1,156 @@
+{
+  "nav": {
+    "json": "JSON",
+    "base64": "Base64",
+    "csvjson": "CSV ↔ JSON",
+    "uuid": "UUID",
+    "about": "Sobre",
+    "toggle_dark": "Cambiar modo oscuro",
+    "title_light": "Cambiar a modo claro",
+    "title_dark": "Cambiar a modo oscuro",
+    "language": "Idioma"
+  },
+  "home": {
+    "seo_title": "Utilidades Online",
+    "seo_description": "Utilidades online pequeñas, rápidas y privadas para todos.",
+    "subtitle": "Herramientas online rápidas y sencillas para el día a día.",
+    "tools": {
+      "json_formatter": {
+        "title": "JSON Formatter",
+        "desc": "Formatea y valida JSON al instante."
+      },
+      "base64": {
+        "title": "Base64 Encode/Decode",
+        "desc": "Codifica y decodifica texto en Base64."
+      },
+      "csvjson": {
+        "title": "CSV ↔ JSON",
+        "desc": "Convierte CSV a JSON y JSON a CSV con un clic."
+      },
+      "uuid": {
+        "title": "Generador de UUID",
+        "desc": "Genera uno o varios UUID v4."
+      }
+    }
+  },
+  "common": {
+    "loading": "Cargando...",
+    "input": "Entrada",
+    "output": "Resultado",
+    "copy_result": "Copiar resultado",
+    "download_started": "Descarga iniciada",
+    "copied": "Copiado al portapapeles",
+    "paste_clipboard": "Pegar del portapapeles",
+    "clear": "Limpiar",
+    "format": "Formatear",
+    "minify": "Minificar",
+    "tips": "Consejos:",
+    "result_placeholder": "Aquí verás el resultado...",
+    "download": "Descargar",
+    "invalid_json": "JSON inválido.",
+    "invalid_input": "Entrada inválida",
+    "converted": "Convertido ({mode})",
+    "cleared": "Limpio",
+    "error": "Error:",
+    "csv": "CSV",
+    "json": "JSON"
+  },
+  "json": {
+    "title": "JSON Formatter",
+    "description": "Formatea, valida y minifica JSON al instante. Ordena claves, copia y descarga el resultado.",
+    "subtitle": "Pega tu JSON y formátéalo o minifícalo. Atajos: {meta}+Enter (Formatear), {meta}+B (Minificar).",
+    "indent": "Indentación",
+    "indent_2": "2 espacios",
+    "indent_4": "4 espacios",
+    "sort_keys": "Ordenar claves",
+    "input_label": "Entrada (JSON)",
+    "output_label": "Resultado",
+    "download_filename": "formatted.json",
+    "advice_1": "Usa {meta}+Enter para formatear rápido.",
+    "advice_2": "Activa Ordenar claves para tener objetos con orden consistente.",
+    "advice_3": "Para archivos muy grandes, pega por partes o usa la herramienta CSV ↔ JSON.",
+    "formatted": "JSON formateado",
+    "minified": "JSON minificado"
+  },
+  "base64": {
+    "title": "Base64 Encode / Decode",
+    "description": "Convierte texto a Base64 y viceversa. Compatible con UTF-8. Todo en tu navegador.",
+    "subtitle": "Convierte texto a Base64 y viceversa directamente en tu navegador.",
+    "encode": "Codificar (→ Base64)",
+    "decode": "Decodificar (Base64 →)",
+    "convert": "Convertir",
+    "input_label": "Entrada",
+    "output_label": "Resultado",
+    "invalid_msg": "Entrada inválida o formato no compatible con Base64.",
+    "tips_1": "Ideal para enviar datos binarios como texto.",
+    "tips_2": "Compatible con UTF-8 y emojis.",
+    "tips_3": "Todo se procesa localmente, sin servidores."
+  },
+  "csvjson": {
+    "title": "CSV ↔ JSON",
+    "description": "Convierte CSV a JSON y JSON a CSV. Autodetección de separador, comillas, cabeceras y descarga.",
+    "subtitle": "Convierte tu data en un clic. Todo sucede en tu navegador.",
+    "mode_csv2json": "CSV → JSON",
+    "mode_json2csv": "JSON → CSV",
+    "delimiter": "Separador",
+    "comma": ", (coma)",
+    "semicolon": "; (punto y coma)",
+    "tab": "TAB",
+    "auto_detect": "Autodetectar separador",
+    "first_row_header": "Primera fila es cabecera",
+    "pretty_json": "JSON legible",
+    "convert": "Convertir",
+    "input_label": "Entrada {mode}",
+    "result_label": "Resultado",
+    "copied": "Copiado al portapapeles",
+    "download_started": "Descarga iniciada",
+    "error_convert": "Error de conversión",
+    "json_expected": "JSON debe ser un objeto, array de objetos o array de arrays.",
+    "placeholder_csv": "name,age\nAda,27\nGrace,30",
+    "placeholder_json": "[{\"name\":\"Ada\",\"age\":27},{\"name\":\"Grace\",\"age\":30}]"
+  },
+  "uuid": {
+    "title": "Generador de UUID",
+    "description": "Genera UUID v4 (RFC 4122) directamente en tu navegador.",
+    "subtitle": "Crea uno o varios UUID y cópialos fácilmente.",
+    "count": "Cantidad",
+    "uppercase": "Mayúsculas",
+    "with_hyphens": "Con guiones",
+    "generate": "Generar",
+    "generated": "Generados {n} UUID{suffix}",
+    "placeholder": "Los UUID generados aparecerán aquí..."
+  },
+  "about": {
+    "title": "Sobre",
+    "description": "Utilidades online rápidas y sencillas.",
+    "body_1": "Proyecto en construcción. Envíame ideas o bugs en GitHub."
+  },
+  "privacy": {
+    "title": "Privacidad",
+    "description": "Toolsy procesa todo localmente en tu navegador. Sin servidores ni cookies de seguimiento.",
+    "subtitle": "Toolsy es privado por diseño. Tus datos nunca salen de tu dispositivo.",
+    "processing": "Procesamiento de datos",
+    "processing_li1": "Todas las herramientas se ejecutan en tu navegador (cliente).",
+    "processing_li2": "No se suben archivos ni texto a ningún servidor.",
+    "processing_li3": "Las acciones del portapapeles ocurren localmente con tu permiso.",
+    "analytics": "Analítica",
+    "analytics_p": "Usamos analítica respetuosa (p.ej. Plausible) para medir uso de forma agregada. Sin cookies ni datos personales.",
+    "contact": "Contacto",
+    "contact_p_prefix": "¿Encontraste un bug o tienes una petición? Abre un issue en",
+    "github": "GitHub"
+  },
+  "notfound": {
+    "title": "404",
+    "description": "Página no encontrada",
+    "subtitle": "No pudimos encontrar esa página.",
+    "go_home": "Ir al inicio",
+    "report_issue": "Reportar un issue"
+  },
+  "error": {
+    "title": "Algo salió mal",
+    "subtitle": "Ocurrió un error inesperado. Intenta recargar la página.",
+    "reload": "Recargar",
+    "report": "Reportar issue"
+  }
+}
+

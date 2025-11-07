@@ -2,6 +2,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import logoLight from "../assets/logo.png";
 import logoDark from "../assets/logo-dark.png";
+import { useI18n } from "../i18n";
 
 const NavItem = ({ to, children }) => (
   <NavLink
@@ -19,6 +20,7 @@ const NavItem = ({ to, children }) => (
 );
 
 export default function Layout() {
+  const { t, lang, setLang } = useI18n();
   const [dark, setDark] = useState(false);
 
   const applyTheme = (isDark) => {
@@ -43,35 +45,36 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur
-                   dark:bg-[#111615]/90 dark:border-neutral-700">
+      <header className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur dark:bg-[#111615]/90 dark:border-neutral-700">
         <div className="container-site flex items-center justify-between py-3">
           <Link to="/" className="flex items-center gap-2">
-            <img
-              src={logoLight}
-              alt="Toolsy logo"
-              className="h-10 w-10 block dark:hidden"
-            />
-            <img
-              src={logoDark}
-              alt="Toolsy logo dark"
-              className="h-10 w-10 hidden dark:block"
-            />
+            <img src={logoLight} alt="Toolsy logo" className="h-10 w-10 block dark:hidden" />
+            <img src={logoDark} alt="Toolsy logo dark" className="h-10 w-10 hidden dark:block" />
             <span className="text-2xl font-bold text-brand-auto">Toolsy</span>
           </Link>
           <nav className="flex items-center gap-3">
-            <NavItem to="/json-formatter">JSON</NavItem>
-            <NavItem to="/base64">Base64</NavItem>
-            <NavItem to="/csv-json">CSV↔JSON</NavItem>
-            <NavItem to="/about">About</NavItem>
+            <NavItem to="/json-formatter">{t("nav.json")}</NavItem>
+            <NavItem to="/base64">{t("nav.base64")}</NavItem>
+            <NavItem to="/csv-json">{t("nav.csvjson")}</NavItem>
+            <NavItem to="/uuid">{t("nav.uuid")}</NavItem>
+            <NavItem to="/about">{t("nav.about")}</NavItem>
+
+            <select
+              aria-label={t("nav.language")}
+              value={lang}
+              onChange={(e) => setLang(e.target.value)}
+              className="ml-2 rounded-lg px-2 py-2 text-sm border border-neutral-300 bg-white hover:bg-neutral-50 dark:border-neutral-600 dark:bg-[#141c17] dark:hover:bg-[#172019]"
+            >
+              <option value="en">English</option>
+              <option value="es">Español</option>
+            </select>
 
             <button
               onClick={() => applyTheme(!dark)}
               aria-pressed={dark}
-              className="ml-2 rounded-lg px-3 py-2 text-sm border border-neutral-300 bg-white hover:bg-neutral-50
-                        dark:border-neutral-600 dark:bg-[#141c17] dark:hover:bg-[#172019]"
-              aria-label="Toggle dark mode"
-              title={dark ? "Switch to light mode" : "Switch to dark mode"}
+              className="ml-2 rounded-lg px-3 py-2 text-sm border border-neutral-300 bg-white hover:bg-neutral-50 dark:border-neutral-600 dark:bg-[#141c17] dark:hover:bg-[#172019]"
+              aria-label={t("nav.toggle_dark")}
+              title={dark ? t("nav.title_light") : t("nav.title_dark")}
             >
               <span aria-hidden>{dark ? "🌙" : "☀️"}</span>
             </button>

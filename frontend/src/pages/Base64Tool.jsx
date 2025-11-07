@@ -2,8 +2,10 @@ import { useState } from "react";
 import SEO from "../components/SEO";
 import { track } from "../lib/analytics";
 import { useToast } from "../components/Toast";
+import { useI18n } from "../i18n";
 
 export default function Base64Tool() {
+  const { t } = useI18n();
   const { show } = useToast();
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
@@ -21,39 +23,39 @@ export default function Base64Tool() {
       }
       setOutput(result);
       setError("");
-      show(`Converted (${mode})`);
+      show(t("common.converted", { mode }));
     } catch (e) {
-      setError("Entrada inválida o formato no compatible con Base64.");
+      setError(t("base64.invalid_msg"));
       setOutput("");
-      show("Invalid input", { variant: "error" });
+      show(t("common.invalid_input"), { variant: "error" });
     }
   };
 
   const copyOutput = async () => {
     if (!output) return;
     await navigator.clipboard.writeText(output);
-    show("Copied to clipboard");
+    show(t("common.copied"));
   };
 
   const clearAll = () => {
     setInput("");
     setOutput("");
     setError("");
-    show("Cleared");
+    show(t("common.cleared"));
   };
 
   return (
     <>
       <SEO
-        title="Base64 Encode / Decode"
-        description="Convierte texto a Base64 y viceversa. UTF-8 friendly. Todo en tu navegador."
+        title={t("base64.title")}
+        description={t("base64.description")}
         path="/base64"
       />
       <div className="space-y-4">
         <div className="space-y-1">
-          <h1 className="text-3xl font-bold text-brand-auto">Base64 Encode / Decode</h1>
+          <h1 className="text-3xl font-bold text-brand-auto">{t("base64.title")}</h1>
           <p className="muted">
-            Convierte texto a Base64 y viceversa directamente en tu navegador.
+            {t("base64.subtitle")}
           </p>
         </div>
 
@@ -66,7 +68,7 @@ export default function Base64Tool() {
               checked={mode === "encode"}
               onChange={() => setMode("encode")}
             />
-            Codificar (→ Base64)
+            {t("base64.encode")}
           </label>
           <label className="flex items-center gap-2 text-sm">
             <input
@@ -76,7 +78,7 @@ export default function Base64Tool() {
               checked={mode === "decode"}
               onChange={() => setMode("decode")}
             />
-            Decodificar (Base64 →)
+            {t("base64.decode")}
           </label>
 
           <div className="flex flex-wrap gap-2">
@@ -84,36 +86,36 @@ export default function Base64Tool() {
               onClick={handleConvert}
               className="btn-primary"
             >
-              Convertir
+              {t("base64.convert")}
             </button>
             <button onClick={clearAll} className="btn-outline">
-              Limpiar
+              {t("common.clear")}
             </button>
           </div>
         </div>
 
         <div className="space-y-2">
           <label htmlFor="input" className="text-sm font-medium">
-            Entrada
+            {t("base64.input_label")}
           </label>
           <textarea
             id="input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={mode === "encode" ? "Texto plano..." : "Cadena Base64..."}
+            placeholder={mode === "encode" ? "Plain text..." : "Base64 string..."}
             className="textarea focus:ring-brand/30"
           />
         </div>
 
         <div className="space-y-2">
           <label htmlFor="output" className="text-sm font-medium">
-            Resultado
+            {t("base64.output_label")}
           </label>
           <textarea
             id="output"
             value={output}
             readOnly
-            placeholder="Aquí verás el resultado..."
+            placeholder={t("common.result_placeholder")}
             className="textarea focus:ring-brand/30"
           />
           <div className="flex flex-wrap gap-2">
@@ -122,7 +124,7 @@ export default function Base64Tool() {
               className={`btn-outline ${!output ? "btn-disabled" : ""}`}
               disabled={!output}
             >
-              Copiar resultado
+              {t("common.copy_result")}
             </button>
           </div>
         </div>
@@ -134,14 +136,15 @@ export default function Base64Tool() {
         )}
 
         <aside className="card p-3 text-sm muted">
-          <p className="mb-1 font-medium">Consejos:</p>
+          <p className="mb-1 font-medium">{t("common.tips")}</p>
           <ul className="list-disc pl-5 space-y-1">
-            <li>Ideal para enviar datos binarios como texto.</li>
-            <li>Compatible con UTF-8 y emojis.</li>
-            <li>Todo se procesa localmente, sin servidores.</li>
+            <li>{t("base64.tips_1")}</li>
+            <li>{t("base64.tips_2")}</li>
+            <li>{t("base64.tips_3")}</li>
           </ul>
         </aside>
       </div>
     </>
   );
 }
+

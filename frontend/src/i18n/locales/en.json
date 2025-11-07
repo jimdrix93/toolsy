@@ -1,0 +1,156 @@
+{
+  "nav": {
+    "json": "JSON",
+    "base64": "Base64",
+    "csvjson": "CSV ↔ JSON",
+    "uuid": "UUID",
+    "about": "About",
+    "toggle_dark": "Toggle dark mode",
+    "title_light": "Switch to light mode",
+    "title_dark": "Switch to dark mode",
+    "language": "Language"
+  },
+  "home": {
+    "seo_title": "Online Utilities",
+    "seo_description": "Small, fast, privacy-friendly online utilities for developers and everyone.",
+    "subtitle": "Fast and simple online tools for everyday.",
+    "tools": {
+      "json_formatter": {
+        "title": "JSON Formatter",
+        "desc": "Format and validate JSON instantly."
+      },
+      "base64": {
+        "title": "Base64 Encode/Decode",
+        "desc": "Encode and decode text in Base64."
+      },
+      "csvjson": {
+        "title": "CSV ↔ JSON",
+        "desc": "Convert CSV to JSON and JSON to CSV with one click."
+      },
+      "uuid": {
+        "title": "UUID Generator",
+        "desc": "Generate one or many UUID v4 values."
+      }
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "input": "Input",
+    "output": "Output",
+    "copy_result": "Copy result",
+    "download_started": "Download started",
+    "copied": "Copied to clipboard",
+    "paste_clipboard": "Paste from clipboard",
+    "clear": "Clear",
+    "format": "Format",
+    "minify": "Minify",
+    "tips": "Tips:",
+    "result_placeholder": "You will see the result here...",
+    "download": "Download",
+    "invalid_json": "Invalid JSON.",
+    "invalid_input": "Invalid input",
+    "converted": "Converted ({mode})",
+    "cleared": "Cleared",
+    "error": "Error:",
+    "csv": "CSV",
+    "json": "JSON"
+  },
+  "json": {
+    "title": "JSON Formatter",
+    "description": "Format, validate, and minify JSON instantly. Sort keys, copy and download the result.",
+    "subtitle": "Paste your JSON and format or minify it. Shortcuts: {meta}+Enter (Format), {meta}+B (Minify).",
+    "indent": "Indentation",
+    "indent_2": "2 spaces",
+    "indent_4": "4 spaces",
+    "sort_keys": "Sort keys",
+    "input_label": "Input (JSON)",
+    "output_label": "Output",
+    "download_filename": "formatted.json",
+    "advice_1": "Use {meta}+Enter to format quickly.",
+    "advice_2": "Enable Sort keys to keep objects consistently ordered.",
+    "advice_3": "For very large files, paste in parts or use the upcoming CSV ↔ JSON tool.",
+    "formatted": "JSON formatted",
+    "minified": "JSON minified"
+  },
+  "base64": {
+    "title": "Base64 Encode / Decode",
+    "description": "Convert text to and from Base64. UTF-8 friendly. Everything in your browser.",
+    "subtitle": "Convert text to Base64 and vice versa directly in your browser.",
+    "encode": "Encode (→ Base64)",
+    "decode": "Decode (Base64 →)",
+    "convert": "Convert",
+    "input_label": "Input",
+    "output_label": "Output",
+    "invalid_msg": "Invalid input or unsupported Base64 format.",
+    "tips_1": "Ideal for sending binary data as text.",
+    "tips_2": "Works with UTF-8 and emojis.",
+    "tips_3": "Everything is processed locally, no servers."
+  },
+  "csvjson": {
+    "title": "CSV ↔ JSON",
+    "description": "Convert CSV to JSON and JSON to CSV. Auto-detection of delimiter, quotes, headers, and download.",
+    "subtitle": "Convert your data in one click. Everything happens in your browser.",
+    "mode_csv2json": "CSV → JSON",
+    "mode_json2csv": "JSON → CSV",
+    "delimiter": "Delimiter",
+    "comma": ", (comma)",
+    "semicolon": "; (semicolon)",
+    "tab": "TAB",
+    "auto_detect": "Auto-detect delimiter",
+    "first_row_header": "First row is header",
+    "pretty_json": "Readable JSON",
+    "convert": "Convert",
+    "input_label": "Input {mode}",
+    "result_label": "Result",
+    "copied": "Copied to clipboard",
+    "download_started": "Download started",
+    "error_convert": "Conversion error",
+    "json_expected": "JSON must be an object, array of objects or array of arrays.",
+    "placeholder_csv": "name,age\nAda,27\nGrace,30",
+    "placeholder_json": "[{\"name\":\"Ada\",\"age\":27},{\"name\":\"Grace\",\"age\":30}]"
+  },
+  "uuid": {
+    "title": "UUID Generator",
+    "description": "Generate RFC 4122 version 4 UUIDs right in your browser.",
+    "subtitle": "Create one or a batch of UUIDs and copy them easily.",
+    "count": "Count",
+    "uppercase": "Uppercase",
+    "with_hyphens": "With hyphens",
+    "generate": "Generate",
+    "generated": "Generated {n} UUID{suffix}",
+    "placeholder": "Generated UUIDs will appear here..."
+  },
+  "about": {
+    "title": "About",
+    "description": "Simple fast online utilities.",
+    "body_1": "Project in progress. Send ideas or bugs on GitHub."
+  },
+  "privacy": {
+    "title": "Privacy",
+    "description": "Toolsy processes everything locally in your browser. No servers, no tracking cookies.",
+    "subtitle": "Toolsy is privacy-friendly by design. Your data never leaves your device.",
+    "processing": "Data processing",
+    "processing_li1": "All tools run fully in your browser (client-side).",
+    "processing_li2": "No files or text are uploaded to any server.",
+    "processing_li3": "Clipboard actions happen locally with your permission.",
+    "analytics": "Analytics",
+    "analytics_p": "We use privacy-first analytics (e.g. Plausible) to measure page usage in aggregate. No cookies, no personal data.",
+    "contact": "Contact",
+    "contact_p_prefix": "Found a bug or have a request? Open an issue on",
+    "github": "GitHub"
+  },
+  "notfound": {
+    "title": "404",
+    "description": "Page not found",
+    "subtitle": "We couldn't find that page.",
+    "go_home": "Go home",
+    "report_issue": "Report an issue"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "subtitle": "An unexpected error occurred. Try reloading the page.",
+    "reload": "Reload",
+    "report": "Report issue"
+  }
+}
+

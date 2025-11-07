@@ -1,43 +1,42 @@
 import SEO from "../components/SEO";
+import { useI18n } from "../i18n";
 
 export default function Privacy() {
+  const { t } = useI18n();
   return (
     <>
       <SEO
-        title="Privacy"
-        description="Toolsy processes everything locally in your browser. No servers, no tracking cookies."
+        title={t("privacy.title")}
+        description={t("privacy.description")}
         path="/privacy"
       />
       <div className="space-y-4">
-        <h1 className="text-3xl font-bold text-[color:var(--brand)]">Privacy</h1>
+        <h1 className="text-3xl font-bold text-[color:var(--brand)]">{t("privacy.title")}</h1>
         <p className="muted">
-          Toolsy is privacy-friendly by design. Your data never leaves your device.
+          {t("privacy.subtitle")}
         </p>
         <div className="card p-4 space-y-2">
-          <h2 className="font-semibold">Data processing</h2>
+          <h2 className="font-semibold">{t("privacy.processing")}</h2>
           <ul className="list-disc pl-5 space-y-1 text-sm">
-            <li>All tools run fully in your browser (client-side).</li>
-            <li>No files or text are uploaded to any server.</li>
-            <li>Clipboard actions happen locally with your permission.</li>
+            <li>{t("privacy.processing_li1")}</li>
+            <li>{t("privacy.processing_li2")}</li>
+            <li>{t("privacy.processing_li3")}</li>
           </ul>
         </div>
         <div className="card p-4 space-y-2">
-          <h2 className="font-semibold">Analytics</h2>
+          <h2 className="font-semibold">{t("privacy.analytics")}</h2>
           <p className="text-sm">
-            We use privacy-first analytics (e.g. Plausible) to measure page usage in aggregate.
-            No cookies, no personal data.
+            {t("privacy.analytics_p")}
           </p>
         </div>
         <div className="card p-4 space-y-2">
-          <h2 className="font-semibold">Contact</h2>
+          <h2 className="font-semibold">{t("privacy.contact")}</h2>
           <p className="text-sm">
-            Found a bug or have a request? Open an issue on{" "}
-            <a className="underline" href="https://github.com/jimdrix93/toolsy" target="_blank" rel="noreferrer">
-              GitHub
-            </a>.
+            {t("privacy.contact_p_prefix")} <a className="underline" href="https://github.com/jimdrix93/toolsy" target="_blank" rel="noreferrer">{t("privacy.github")}</a>.
           </p>
         </div>
       </div>
     </>
   );
 }
+

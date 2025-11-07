@@ -7,7 +7,7 @@ const DEFAULT_IMAGE = "/og-image.png";
 
 export default function SEO({ title, description = "Small, fast, privacy-friendly online utilities.", path = "/", image = DEFAULT_IMAGE, jsonLd }) {
   const url = useMemo(() => (path.startsWith("/") ? ORIGIN + path : ORIGIN + "/" + path), [path]);
-  const fullTitle = title ? `${title} — ${SITE_NAME}` : SITE_NAME;
+  const fullTitle = title ? `${title} - ${SITE_NAME}` : SITE_NAME;
 
   return (
     <Helmet>
@@ -38,3 +38,4 @@ export default function SEO({ title, description = "Small, fast, privacy-friendl
     </Helmet>
   );
 }
+

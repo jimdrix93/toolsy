@@ -1,10 +1,11 @@
 import { useMemo, useState } from "react";
 import SEO from "../components/SEO";
 import { useToast } from "../components/Toast";
+import { useI18n } from "../i18n";
 
 /* ---------------- Utils ---------------- */
 
-// Detecta separador por frecuencia en las primeras líneas
+// Detect delimiter by frequency in first lines
 function detectDelimiter(text) {
   const sample = text.split(/\r?\n/).slice(0, 5).join("\n");
   const counts = {
@@ -16,7 +17,7 @@ function detectDelimiter(text) {
   return counts[best] > 0 ? best : ",";
 }
 
-// Parser CSV robusto con comillas y CRLF
+// Robust CSV parser with quotes and CRLF
 function parseCSV(text, delimiter = ",") {
   const rows = [];
   let i = 0, cur = "", inQuotes = false, row = [];
@@ -41,7 +42,7 @@ function parseCSV(text, delimiter = ",") {
       cur += ch; i++; continue;
     }
   }
-  // Última celda/última fila
+  // last cell/row
   pushCell();
   if (row.length > 1 || rows.length === 0 || (row.length === 1 && row[0] !== "")) {
     pushRow();
@@ -59,7 +60,7 @@ function toCSV(rows, delimiter = ",") {
 }
 
 function objectsToCSV(objects, delimiter = ",") {
-  // headers = unión de claves preservando orden de aparición
+  // headers = union of keys preserving appearance order
   const headers = Array.from(
     objects.reduce((set, obj) => {
       Object.keys(obj || {}).forEach(k => set.add(k));
@@ -72,7 +73,7 @@ function objectsToCSV(objects, delimiter = ",") {
 
 function csvToObjects(rows, hasHeader) {
   if (!rows.length) return [];
-  if (!hasHeader) return rows; // array de arrays
+  if (!hasHeader) return rows; // array of arrays
   const headers = rows[0];
   return rows.slice(1).map(r => {
     const obj = {};
@@ -84,6 +85,7 @@ function csvToObjects(rows, hasHeader) {
 /* --------------- Component --------------- */
 
 export default function CsvJson() {
+  const { t } = useI18n();
   const { show } = useToast();
 
   const [mode, setMode] = useState("csv2json"); // "csv2json" | "json2csv"
@@ -97,11 +99,11 @@ export default function CsvJson() {
 
   const delimiterName = useMemo(() => {
     return delimiter === ","
-      ? "coma (,)"
+      ? t("csvjson.comma")
       : delimiter === ";"
-      ? "punto y coma (;)"
-      : "tabulación (TAB)";
-  }, [delimiter]);
+      ? t("csvjson.semicolon")
+      : t("csvjson.tab");
+  }, [delimiter, t]);
 
   const handleConvert = () => {
     try {
@@ -113,8 +115,8 @@ export default function CsvJson() {
         const data = csvToObjects(rows, hasHeader);
         const json = pretty ? JSON.stringify(data, null, 2) : JSON.stringify(data);
         setOutput(json);
-        if (auto) setDelimiter(usedDelimiter); // refleja autodetección
-        show("CSV → JSON convertido");
+        if (auto) setDelimiter(usedDelimiter); // reflect autodetection
+        show(t("csvjson.mode_csv2json") + " " + t("common.converted", { mode: "" }).replace(" ()", ""));
       } else {
         // json2csv
         const data = JSON.parse(input.trim() || "[]");
@@ -123,34 +125,34 @@ export default function CsvJson() {
           if (data.length && typeof data[0] === "object" && !Array.isArray(data[0])) {
             csv = objectsToCSV(data, delimiter);
           } else {
-            // array de arrays
+            // array of arrays
             csv = toCSV(data, delimiter);
           }
         } else if (typeof data === "object") {
           csv = objectsToCSV([data], delimiter);
         } else {
-          throw new Error("JSON debe ser un objeto, array de objetos o array de arrays.");
+          throw new Error(t("csvjson.json_expected"));
         }
         setOutput(csv);
-        show("JSON → CSV convertido");
+        show(t("csvjson.mode_json2csv") + " " + t("common.converted", { mode: "" }).replace(" ()", ""));
       }
     } catch (e) {
       setOutput("");
-      const msg = e instanceof Error ? e.message : "Error al convertir.";
+      const msg = e instanceof Error ? e.message : t("csvjson.error_convert");
       setError(msg);
-      show("Error de conversión", { variant: "error" });
+      show(t("csvjson.error_convert"), { variant: "error" });
     }
   };
 
   const copyOutput = async () => {
     if (!output) return;
     await navigator.clipboard.writeText(output);
-    show("Copiado al portapapeles");
+    show(t("common.copied"));
   };
 
   const clearAll = () => {
     setInput(""); setOutput(""); setError("");
-    show("Limpio");
+    show(t("common.cleared"));
   };
 
   const downloadOutput = () => {
@@ -162,21 +164,21 @@ export default function CsvJson() {
     const a = document.createElement("a");
     a.href = url; a.download = fname; a.click();
     URL.revokeObjectURL(url);
-    show("Descarga iniciada");
+    show(t("common.download_started"));
   };
 
   return (
     <>
       <SEO
-        title="CSV ↔ JSON"
-        description="Convierte CSV a JSON y JSON a CSV. Autodetección de separador, comillas, cabeceras y descarga."
+        title={t("csvjson.title")}
+        description={t("csvjson.description")}
         path="/csv-json"
       />
 
       <div className="space-y-6">
         <div className="space-y-1">
-          <h1 className="text-3xl font-bold text-[color:var(--brand)]">CSV ↔ JSON</h1>
-          <p className="muted">Convierte tu data en un clic. Todo sucede en tu navegador.</p>
+          <h1 className="text-3xl font-bold text-[color:var(--brand)]">{t("csvjson.title")}</h1>
+          <p className="muted">{t("csvjson.subtitle")}</p>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
@@ -187,9 +189,9 @@ export default function CsvJson() {
               value="csv2json"
               checked={mode === "csv2json"}
               onChange={() => setMode("csv2json")}
-              aria-label="CSV a JSON"
+              aria-label={t("csvjson.mode_csv2json")}
             />
-            CSV → JSON
+            {t("csvjson.mode_csv2json")}
           </label>
           <label className="flex items-center gap-2 text-sm">
             <input
@@ -198,13 +200,13 @@ export default function CsvJson() {
               value="json2csv"
               checked={mode === "json2csv"}
               onChange={() => setMode("json2csv")}
-              aria-label="JSON a CSV"
+              aria-label={t("csvjson.mode_json2csv")}
             />
-            JSON → CSV
+            {t("csvjson.mode_json2csv")}
           </label>
 
           <div className="flex items-center gap-2">
-            <label htmlFor="delimiter" className="label">Separador</label>
+            <label htmlFor="delimiter" className="label">{t("csvjson.delimiter")}</label>
             <select
               id="delimiter"
               disabled={mode === "csv2json" && auto}
@@ -212,9 +214,9 @@ export default function CsvJson() {
               value={delimiter}
               onChange={(e) => setDelimiter(e.target.value)}
             >
-              <option value=",">, (coma)</option>
-              <option value=";">; (punto y coma)</option>
-              <option value="\t">TAB</option>
+              <option value=",">{t("csvjson.comma")}</option>
+              <option value=";">{t("csvjson.semicolon")}</option>
+              <option value="\t">{t("csvjson.tab")}</option>
             </select>
           </div>
 
@@ -225,9 +227,9 @@ export default function CsvJson() {
                   type="checkbox"
                   checked={auto}
                   onChange={(e) => setAuto(e.target.checked)}
-                  aria-label="Autodetectar separador"
+                  aria-label={t("csvjson.auto_detect")}
                 />
-                Autodetectar separador {auto && <span className="muted">({delimiterName})</span>}
+                {t("csvjson.auto_detect")} {auto && <span className="muted">({delimiterName})</span>}
               </label>
 
               <label className="flex items-center gap-2 text-sm">
@@ -235,9 +237,9 @@ export default function CsvJson() {
                   type="checkbox"
                   checked={hasHeader}
                   onChange={(e) => setHasHeader(e.target.checked)}
-                  aria-label="Primera fila es cabecera"
+                  aria-label={t("csvjson.first_row_header")}
                 />
-                Primera fila es cabecera
+                {t("csvjson.first_row_header")}
               </label>
 
               <label className="flex items-center gap-2 text-sm">
@@ -245,22 +247,22 @@ export default function CsvJson() {
                   type="checkbox"
                   checked={pretty}
                   onChange={(e) => setPretty(e.target.checked)}
-                  aria-label="Formato legible JSON"
+                  aria-label={t("csvjson.pretty_json")}
                 />
-                JSON legible
+                {t("csvjson.pretty_json")}
               </label>
             </>
           )}
 
           <div className="flex flex-wrap gap-2">
-            <button onClick={handleConvert} className="btn-primary">Convertir</button>
-            <button onClick={clearAll} className="btn-ghost">Limpiar</button>
+            <button onClick={handleConvert} className="btn-primary">{t("csvjson.convert")}</button>
+            <button onClick={clearAll} className="btn-ghost">{t("common.clear")}</button>
           </div>
         </div>
 
         <div className="space-y-2">
           <label htmlFor="input" className="label">
-            Entrada {mode === "csv2json" ? "(CSV)" : "(JSON)"}
+            {t("csvjson.input_label", { mode: mode === "csv2json" ? `(${t("common.csv")})` : `(${t("common.json")})` })}
           </label>
           <textarea
             id="input"
@@ -268,8 +270,8 @@ export default function CsvJson() {
             onChange={(e) => setInput(e.target.value)}
             placeholder={
               mode === "csv2json"
-                ? 'name,age\nAda,27\nGrace,30'
-                : '[{"name":"Ada","age":27},{"name":"Grace","age":30}]'
+                ? t("csvjson.placeholder_csv")
+                : t("csvjson.placeholder_json")
             }
             className="textarea"
             aria-invalid={!!error}
@@ -277,20 +279,20 @@ export default function CsvJson() {
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="output" className="label">Resultado</label>
+          <label htmlFor="output" className="label">{t("csvjson.result_label")}</label>
           <textarea
             id="output"
             readOnly
             value={output}
-            placeholder="Aquí verás el resultado…"
+            placeholder={t("common.result_placeholder")}
             className="textarea bg-neutral-50 dark:bg-[#101712]"
           />
           <div className="flex flex-wrap gap-2">
             <button onClick={copyOutput} disabled={!output} className={`btn-outline ${!output ? "btn-disabled" : ""}`}>
-              Copiar resultado
+              {t("common.copy_result")}
             </button>
             <button onClick={downloadOutput} disabled={!output} className={`btn-outline ${!output ? "btn-disabled" : ""}`}>
-              Descargar {mode === "csv2json" ? ".json" : ".csv"}
+              {t("common.download")} {mode === "csv2json" ? ".json" : ".csv"}
             </button>
           </div>
         </div>
@@ -300,19 +302,20 @@ export default function CsvJson() {
             role="alert"
             className="rounded border border-red-300 bg-red-50 p-2 text-sm text-red-700 dark:border-red-700 dark:bg-red-900/30 dark:text-red-200"
           >
-            Error: {error}
+            {t("common.error")} {error}
           </div>
         )}
 
         <aside className="card p-3 text-sm text-neutral-700 dark:text-neutral-300">
-          <p className="mb-1 font-medium">Consejos:</p>
+          <p className="mb-1 font-medium">{t("common.tips")}</p>
           <ul className="list-disc pl-5 space-y-1">
-            <li>El separador se autodetecta si lo permites (coma, punto y coma o TAB).</li>
-            <li>Las comillas dobles dentro de campos se escapan como <code>""</code>.</li>
-            <li>Para JSON muy grande, desactiva “JSON legible” para mejor rendimiento.</li>
+            <li>{t("csvjson.auto_detect")} ( {t("csvjson.comma")}, {t("csvjson.semicolon")}, {t("csvjson.tab")} )</li>
+            <li>"" → "" escape</li>
+            <li>{t("csvjson.pretty_json")}: JSON</li>
           </ul>
         </aside>
       </div>
     </>
   );
 }
+
