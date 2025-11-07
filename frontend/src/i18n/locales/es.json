@@ -177,5 +177,10 @@
     "subtitle": "Ocurrió un error inesperado. Intenta recargar la página.",
     "reload": "Recargar",
     "report": "Reportar issue"
+  },
+  "pwa": {
+    "update_available": "Hay una nueva versión disponible.",
+    "reload": "Recargar",
+    "dismiss": "Cerrar"
   }
 }

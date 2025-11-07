@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ToastProvider } from "./components/Toast";
 import { useI18n } from "./i18n";
+import PWAUpdater from "./pwa/PWAUpdater";
 
 const Home = lazy(() => import("./pages/Home"));
 const JsonFormatter = lazy(() => import("./pages/JsonFormatter"));
@@ -29,6 +30,7 @@ export default function App() {
     <BrowserRouter>
       <ErrorBoundary>
         <ToastProvider>
+          <PWAUpdater />
           <Suspense fallback={<Fallback />}>
             <Routes>
               <Route element={<Layout />}>

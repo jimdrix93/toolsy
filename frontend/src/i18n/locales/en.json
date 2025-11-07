@@ -177,5 +177,10 @@
     "subtitle": "An unexpected error occurred. Try reloading the page.",
     "reload": "Reload",
     "report": "Report issue"
+  },
+  "pwa": {
+    "update_available": "A new version is available.",
+    "reload": "Reload",
+    "dismiss": "Dismiss"
   }
 }
