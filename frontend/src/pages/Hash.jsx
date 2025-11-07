@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import SEO from "../components/SEO";
 import { useI18n } from "../i18n";
 import { useToast } from "../components/Toast";
@@ -17,21 +17,34 @@ async function sha256Hex(message) {
 export default function Hash() {
   const { t } = useI18n();
   const { show } = useToast();
-  const [algo] = useState("SHA-256");
+  const [algo, setAlgo] = useState("SHA-256");
+  const [mode, setMode] = useState("text"); // 'text' | 'file'
   const [input, setInput] = useState("");
+  const [file, setFile] = useState(null);
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
+  const [dragOver, setDragOver] = useState(false);
+  const fileInputRef = useRef(null);
 
   const handleHash = async () => {
     try {
       setError("");
-      if (!input) { setOutput(""); return; }
       let hex = "";
-      if (algo === "SHA-256") {
-        hex = await sha256Hex(input);
+      let data;
+      if (mode === "text") {
+        if (!input) { setOutput(""); return; }
+        data = new TextEncoder().encode(input);
+      } else {
+        if (!file) { setOutput(""); return; }
+        const buf = await file.arrayBuffer();
+        data = new Uint8Array(buf);
       }
+      const algoName = algo; // "SHA-1" | "SHA-256" | "SHA-512"
+      const hashBuffer = await crypto.subtle.digest(algoName, data);
+      const bytes = new Uint8Array(hashBuffer);
+      hex = Array.from(bytes).map(b => b.toString(16).padStart(2, "0")).join("");
       setOutput(hex);
-      track("hash_compute", { algo });
+      track("hash_compute", { algo, mode, size: mode === 'file' ? file?.size : undefined });
       show(t("hash.hashed", { algo }));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Error");
@@ -67,9 +80,23 @@ export default function Hash() {
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2">
             <label htmlFor="algo" className="label">{t("hash.algo_label")}</label>
-            <select id="algo" className="input h-9 w-auto px-2 py-1" value={algo} readOnly>
+            <select id="algo" className="input h-9 w-auto px-2 py-1" value={algo} onChange={(e)=>setAlgo(e.target.value)}>
+              <option value="SHA-1">{t("hash.sha1")}</option>
               <option value="SHA-256">{t("hash.sha256")}</option>
+              <option value="SHA-384">{t("hash.sha384")}</option>
+              <option value="SHA-512">{t("hash.sha512")}</option>
             </select>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="label">{t("hash.mode_label")}</span>
+            <label className="flex items-center gap-1 text-sm">
+              <input type="radio" name="mode" value="text" checked={mode === 'text'} onChange={()=>setMode('text')} />
+              {t("hash.mode_text")}
+            </label>
+            <label className="flex items-center gap-1 text-sm">
+              <input type="radio" name="mode" value="file" checked={mode === 'file'} onChange={()=>setMode('file')} />
+              {t("hash.mode_file")}
+            </label>
           </div>
           <div className="flex flex-wrap gap-2">
             <button onClick={handleHash} className="btn-primary">{t("hash.hash")}</button>
@@ -77,16 +104,46 @@ export default function Hash() {
           </div>
         </div>
 
-        <div className="space-y-2">
-          <label htmlFor="input" className="label">{t("hash.input_label")}</label>
-          <textarea
-            id="input"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Hello world"
-            className="textarea"
-          />
-        </div>
+        {mode === 'text' ? (
+          <div className="space-y-2">
+            <label htmlFor="input" className="label">{t("hash.input_label")}</label>
+            <textarea
+              id="input"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Hello world"
+              className="textarea"
+            />
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <label htmlFor="file" className="label">{t("hash.file_label")}</label>
+            <input
+              ref={fileInputRef}
+              id="file"
+              type="file"
+              onChange={(e) => setFile(e.target.files && e.target.files[0] ? e.target.files[0] : null)}
+              className="hidden"
+            />
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={() => fileInputRef.current?.click()}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') fileInputRef.current?.click(); }}
+              onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+              onDragLeave={() => setDragOver(false)}
+              onDrop={(e) => {
+                e.preventDefault(); setDragOver(false);
+                const f = e.dataTransfer.files && e.dataTransfer.files[0];
+                if (f) setFile(f);
+              }}
+              className={`border-2 border-dashed rounded-md p-6 text-center cursor-pointer select-none ${dragOver ? 'border-[color:var(--brand)] bg-brand/5' : 'border-neutral-300 dark:border-neutral-700'}`}
+            >
+              <p className="text-sm">{t("hash.drop_hint")}</p>
+              <p className="muted text-xs mt-1">{file ? `${file.name} (${file.size} bytes)` : t("hash.no_file")}</p>
+            </div>
+          </div>
+        )}
 
         <div className="space-y-2">
           <label htmlFor="output" className="label">{t("hash.output_label")}</label>
@@ -110,4 +167,3 @@ export default function Hash() {
     </>
   );
 }
-
