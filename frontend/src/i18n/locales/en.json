@@ -3,6 +3,7 @@
     "json": "JSON",
     "base64": "Base64",
     "csvjson": "CSV ↔ JSON",
+    "hash": "Hash",
     "uuid": "UUID",
     "about": "About",
     "toggle_dark": "Toggle dark mode",
@@ -26,6 +27,10 @@
       "csvjson": {
         "title": "CSV ↔ JSON",
         "desc": "Convert CSV to JSON and JSON to CSV with one click."
+      },
+      "hash": {
+        "title": "Hash Tool",
+        "desc": "Compute SHA-256 hashes of text."
       },
       "uuid": {
         "title": "UUID Generator",
@@ -120,6 +125,17 @@
     "generated": "Generated {n} UUID{suffix}",
     "placeholder": "Generated UUIDs will appear here..."
   },
+  "hash": {
+    "title": "Hash Tool",
+    "description": "Compute cryptographic hashes using Web Crypto in your browser.",
+    "subtitle": "Currently supports SHA-256 over text input.",
+    "algo_label": "Algorithm",
+    "sha256": "SHA-256",
+    "input_label": "Input",
+    "output_label": "Hash (hex)",
+    "hash": "Hash",
+    "hashed": "Hash computed ({algo})"
+  },
   "about": {
     "title": "About",
     "description": "Simple fast online utilities.",
@@ -153,4 +169,3 @@
     "report": "Report issue"
   }
 }
-

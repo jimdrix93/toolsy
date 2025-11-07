@@ -8,6 +8,7 @@ export default function Home() {
     { path: "/json-formatter", title: t("home.tools.json_formatter.title"), desc: t("home.tools.json_formatter.desc") },
     { path: "/base64", title: t("home.tools.base64.title"), desc: t("home.tools.base64.desc") },
     { path: "/csv-json", title: t("home.tools.csvjson.title"), desc: t("home.tools.csvjson.desc") },
+    { path: "/hash", title: t("home.tools.hash.title"), desc: t("home.tools.hash.desc") },
     { path: "/uuid", title: t("home.tools.uuid.title"), desc: t("home.tools.uuid.desc") }
   ];
 

@@ -56,6 +56,7 @@ export default function Layout() {
             <NavItem to="/json-formatter">{t("nav.json")}</NavItem>
             <NavItem to="/base64">{t("nav.base64")}</NavItem>
             <NavItem to="/csv-json">{t("nav.csvjson")}</NavItem>
+            <NavItem to="/hash">{t("nav.hash")}</NavItem>
             <NavItem to="/uuid">{t("nav.uuid")}</NavItem>
             <NavItem to="/about">{t("nav.about")}</NavItem>
 

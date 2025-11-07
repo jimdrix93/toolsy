@@ -9,6 +9,7 @@ const Home = lazy(() => import("./pages/Home"));
 const JsonFormatter = lazy(() => import("./pages/JsonFormatter"));
 const Base64Tool = lazy(() => import("./pages/Base64Tool"));
 const CsvJson = lazy(() => import("./pages/CsvJson"));
+const Hash = lazy(() => import("./pages/Hash"));
 const Uuid = lazy(() => import("./pages/Uuid"));
 const About = lazy(() => import("./pages/About"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -35,6 +36,7 @@ export default function App() {
                 <Route path="json-formatter" element={<JsonFormatter />} />
                 <Route path="base64" element={<Base64Tool />} />
                 <Route path="csv-json" element={<CsvJson />} />
+                <Route path="hash" element={<Hash />} />
                 <Route path="uuid" element={<Uuid />} />
                 <Route path="about" element={<About />} />
                 <Route path="privacy" element={<Privacy />} />
