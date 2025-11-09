@@ -191,6 +191,9 @@
     "reddit": "Reddit"
   },
   "install": {
-    "install_app": "Install App"
+    "install_app": "Install App",
+    "use_menu": "Use your browser's menu and select Install app.",
+    "ios_tip": "On iOS, use Share → Add to Home Screen to install.",
+    "got_it": "Got it"
   }
 }

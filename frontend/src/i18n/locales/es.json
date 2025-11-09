@@ -191,6 +191,9 @@
     "reddit": "Reddit"
   },
   "install": {
-    "install_app": "Instalar app"
+    "install_app": "Instalar app",
+    "use_menu": "Usa el menú del navegador y elige Instalar aplicación.",
+    "ios_tip": "En iOS, usa Compartir → Añadir a pantalla de inicio.",
+    "got_it": "Entendido"
   }
 }
