@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "vercel-build": "vite build && node scripts/indexnow.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "indexnow": "node scripts/indexnow.mjs https://toolsykit.vercel.app"

@@ -5,7 +5,10 @@
 import https from 'https';
 import { URL } from 'url';
 
-const ORIGIN = process.argv[2] || 'https://toolsykit.vercel.app';
+const envOrigin = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : null;
+const ORIGIN = process.argv[2] || envOrigin || 'https://toolsykit.vercel.app';
 const KEY = '8f4f4b4d8e2f4a8b8cd6c1e6f76c9c5a';
 const KEY_LOCATION = `${ORIGIN}/${KEY}.txt`;
 
@@ -35,4 +38,3 @@ function ping(urlStr) {
   }
   console.log('IndexNow ping completed');
 })();
-
