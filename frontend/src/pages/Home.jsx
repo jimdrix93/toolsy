@@ -33,6 +33,7 @@ export default function Home() {
       <div className="space-y-6">
         <h1 className="text-3xl font-bold text-brand-auto">Toolsy</h1>
         <p className="muted">{t("home.subtitle")}</p>
+        <p className="muted text-sm">{t("home.brand_note")}</p>
 
         <div className="grid gap-4 md:grid-cols-2">
           {tools.map((item) => (

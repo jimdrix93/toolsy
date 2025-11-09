@@ -15,6 +15,7 @@
     "seo_title": "Online Utilities",
     "seo_description": "Small, fast, privacy-friendly online utilities for developers and everyone.",
     "subtitle": "Fast and simple online tools for everyday.",
+    "brand_note": "Toolsykit is a lightweight, privacy-first toolbox for developers and everyday tasks.",
     "tools": {
       "json_formatter": {
         "title": "JSON Formatter",

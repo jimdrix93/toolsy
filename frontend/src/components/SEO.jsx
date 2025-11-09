@@ -11,6 +11,12 @@ export default function SEO({ title, description = "Small, fast, privacy-friendl
   }, []);
   const url = useMemo(() => (path.startsWith("/") ? origin + path : origin + "/" + path), [path, origin]);
   const fullTitle = title ? `${title} - ${SITE_NAME}` : SITE_NAME;
+  const ogLocale = useMemo(() => {
+    try {
+      const lang = (typeof document !== 'undefined' ? document.documentElement.lang : 'en') || 'en';
+      return lang.startsWith('es') ? 'es_ES' : 'en_US';
+    } catch { return 'en_US'; }
+  }, []);
 
   return (
     <Helmet>
@@ -24,6 +30,7 @@ export default function SEO({ title, description = "Small, fast, privacy-friendl
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />
+      <meta property="og:locale" content={ogLocale} />
       <meta property="og:image" content={image} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
