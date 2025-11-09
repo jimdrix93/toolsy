@@ -20,14 +20,24 @@ export default function Home() {
         path="/"
         jsonLd={{
           "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": "Toolsy",
-          "url": "https://toolsykit.vercel.app",
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://toolsykit.vercel.app/?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-          }
+          "@graph": [
+            {
+              "@type": "WebSite",
+              "name": "Toolsy",
+              "url": "https://toolsykit.vercel.app",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://toolsykit.vercel.app/?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "Organization",
+              "name": "Toolsy",
+              "url": "https://toolsykit.vercel.app",
+              "logo": "https://toolsykit.vercel.app/logo-512.png"
+            }
+          ]
         }}
       />
       <div className="space-y-6">

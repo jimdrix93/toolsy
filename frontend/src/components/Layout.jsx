@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import logoLight from "../assets/logo.png";
 import logoDark from "../assets/logo-dark.png";
 import { useI18n } from "../i18n";
+import InstallButton from "../pwa/InstallButton";
 
 const NavItem = ({ to, children }) => (
   <NavLink
@@ -79,6 +80,8 @@ export default function Layout() {
             >
               <span aria-hidden>{dark ? "🌙" : "☀️"}</span>
             </button>
+
+            <InstallButton />
           </nav>
         </div>
       </header>

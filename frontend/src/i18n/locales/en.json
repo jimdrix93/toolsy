@@ -189,5 +189,8 @@
     "twitter": "Twitter/X",
     "linkedin": "LinkedIn",
     "reddit": "Reddit"
+  },
+  "install": {
+    "install_app": "Install App"
   }
 }
