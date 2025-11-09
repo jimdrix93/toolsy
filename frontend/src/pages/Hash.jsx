@@ -16,7 +16,7 @@ async function sha256Hex(message) {
 }
 
 export default function Hash() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const { show } = useToast();
   const [algo, setAlgo] = useState("SHA-256");
   const [mode, setMode] = useState("text"); // 'text' | 'file'
@@ -68,17 +68,35 @@ export default function Hash() {
   return (
     <>
       <SEO
-        title={t("hash.title")}
-        description={t("hash.description")}
+        title={lang.startsWith('es') ? 'Herramienta de Hash (SHA-256, SHA-1, SHA-512) – Toolsy' : 'Hash Tool (SHA-256, SHA-1, SHA-512) – Toolsy'}
+        description={lang.startsWith('es') ? 'Calcula SHA-256, SHA-1, SHA-384 y SHA-512 online para texto o archivos. 100% en tu navegador.' : 'Compute SHA-256, SHA-1, SHA-384 and SHA-512 online for text or files. 100% client-side.'}
         path="/hash"
         image="https://toolsykit.vercel.app/og-hash.png"
         jsonLd={{
           "@context": "https://schema.org",
-          "@type": "SoftwareApplication",
-          "name": t("hash.title"),
-          "applicationCategory": "DeveloperApplication",
-          "operatingSystem": "Web",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          "@graph": [
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": lang.startsWith('es') ? 'Inicio' : 'Home', "item": "https://toolsykit.vercel.app/" },
+                { "@type": "ListItem", "position": 2, "name": lang.startsWith('es') ? 'Herramienta de Hash' : 'Hash Tool', "item": "https://toolsykit.vercel.app/hash" }
+              ]
+            },
+            {
+              "@type": "SoftwareApplication",
+              "name": lang.startsWith('es') ? 'Herramienta de Hash' : 'Hash Tool',
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "Web",
+              "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+            },
+            {
+              "@type": "FAQPage",
+              "mainEntity": [
+                { "@type": "Question", "name": lang.startsWith('es') ? '¿Qué algoritmos están soportados?' : 'Which algorithms are supported?', "acceptedAnswer": { "@type": "Answer", "text": lang.startsWith('es') ? 'SHA-1, SHA-256, SHA-384 y SHA-512 tanto para texto como para archivos.' : 'SHA-1, SHA-256, SHA-384 and SHA-512 for both text and files.' } },
+                { "@type": "Question", "name": lang.startsWith('es') ? '¿Funciona sin conexión?' : 'Does it work offline?', "acceptedAnswer": { "@type": "Answer", "text": lang.startsWith('es') ? 'Sí. Como PWA, una vez en caché puede funcionar offline.' : 'Yes. As a PWA, once cached it can run offline for repeated use.' } }
+              ]
+            }
+          ]
         }}
       />
       <div className="space-y-6">
@@ -173,6 +191,21 @@ export default function Hash() {
             <div className="rounded border border-red-300 bg-red-50 p-2 text-sm text-red-700">{t("common.error")} {error}</div>
           )}
         </div>
+        <section className="card p-4 space-y-2">
+          <h2 className="font-semibold">{lang.startsWith('es') ? '¿Qué es un hash criptográfico?' : 'What is a cryptographic hash?'}</h2>
+          <p className="text-sm muted">
+            {lang.startsWith('es')
+              ? 'Un hash criptográfico (p. ej. SHA‑256) convierte datos en una huella de longitud fija, determinista y con evidencia de alteración. Esta herramienta calcula hashes localmente con la Web Crypto API.'
+              : 'A cryptographic hash (e.g. SHA‑256) transforms data into a fixed‑length fingerprint that is deterministic and tamper‑evident. This tool computes hashes locally via the Web Crypto API.'}
+          </p>
+          <p className="text-sm">
+            {lang.startsWith('es') ? 'Ver también: ' : 'See also: '}
+            <a className="underline" href="/json-formatter">{lang.startsWith('es') ? 'Formateador JSON' : 'JSON Formatter'}</a>
+            {' '}
+            {lang.startsWith('es') ? 'y ' : 'and '}
+            <a className="underline" href="/uuid">{lang.startsWith('es') ? 'Generador de UUID' : 'UUID Generator'}</a>.
+          </p>
+        </section>
         <Share titleKey="hash.title" path="/hash" />
       </div>
     </>

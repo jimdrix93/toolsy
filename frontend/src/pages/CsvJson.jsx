@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import SEO from "../components/SEO";
+import { Link } from "react-router-dom";
 import Share from "../components/Share";
 import { useToast } from "../components/Toast";
 import { useI18n } from "../i18n";
@@ -86,7 +87,7 @@ function csvToObjects(rows, hasHeader) {
 /* --------------- Component --------------- */
 
 export default function CsvJson() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const { show } = useToast();
 
   const [mode, setMode] = useState("csv2json"); // "csv2json" | "json2csv"
@@ -171,17 +172,35 @@ export default function CsvJson() {
   return (
     <>
       <SEO
-        title={t("csvjson.title")}
-        description={t("csvjson.description")}
+        title={lang.startsWith('es') ? 'CSV ↔ JSON Online – Toolsy' : 'CSV ↔ JSON Converter Online – Toolsy'}
+        description={lang.startsWith('es') ? 'Convierte CSV a JSON y JSON a CSV online. Autodetecta separador, cabeceras y comillas. 100% en tu navegador.' : 'Convert CSV to JSON and JSON to CSV online. Auto‑detects delimiter, headers and quotes. 100% client‑side.'}
         path="/csv-json"
         image="https://toolsykit.vercel.app/og-csvjson.png"
         jsonLd={{
           "@context": "https://schema.org",
-          "@type": "SoftwareApplication",
-          "name": t("csvjson.title"),
-          "applicationCategory": "DeveloperApplication",
-          "operatingSystem": "Web",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          "@graph": [
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": lang.startsWith('es') ? 'Inicio' : 'Home', "item": "https://toolsykit.vercel.app/" },
+                { "@type": "ListItem", "position": 2, "name": lang.startsWith('es') ? 'CSV ↔ JSON' : 'CSV ↔ JSON', "item": "https://toolsykit.vercel.app/csv-json" }
+              ]
+            },
+            {
+              "@type": "SoftwareApplication",
+              "name": "CSV ↔ JSON",
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "Web",
+              "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+            },
+            {
+              "@type": "FAQPage",
+              "mainEntity": [
+                { "@type": "Question", "name": lang.startsWith('es') ? '¿Detecta automáticamente el separador?' : 'Does it auto‑detect the delimiter?', "acceptedAnswer": { "@type": "Answer", "text": lang.startsWith('es') ? 'Sí, puede detectar coma, punto y coma o TAB a partir de las primeras líneas.' : 'Yes, it can detect comma, semicolon or TAB from the first lines.' } },
+                { "@type": "Question", "name": lang.startsWith('es') ? '¿Se procesan los datos en un servidor?' : 'Are my files or data uploaded to a server?', "acceptedAnswer": { "@type": "Answer", "text": lang.startsWith('es') ? 'No. Todo sucede localmente en tu navegador.' : 'No. Everything happens locally in your browser.' } }
+              ]
+            }
+          ]
         }}
       />
 
@@ -324,6 +343,22 @@ export default function CsvJson() {
             <li>{t("csvjson.pretty_json")}: JSON</li>
           </ul>
         </aside>
+
+        <section className="card p-4 space-y-2">
+          <h2 className="font-semibold">{lang.startsWith('es') ? '¿Qué es un conversor CSV ↔ JSON?' : 'What is a CSV ↔ JSON converter?'}</h2>
+          <p className="text-sm muted">
+            {lang.startsWith('es')
+              ? 'Un conversor CSV ↔ JSON transforma datos tabulares en objetos JSON y viceversa. Esta herramienta autodetecta separadores y cabeceras y funciona 100% en tu navegador.'
+              : 'A CSV ↔ JSON converter transforms tabular data into JSON objects and back. This tool auto‑detects delimiters and headers and runs entirely in your browser.'}
+          </p>
+          <p className="text-sm">
+            {lang.startsWith('es') ? 'Ver también: ' : 'See also: '}
+            <Link className="underline" to="/json-formatter">{lang.startsWith('es') ? 'Formateador JSON' : 'JSON Formatter'}</Link>
+            {' '}
+            {lang.startsWith('es') ? 'y ' : 'and '}
+            <Link className="underline" to="/hash">{lang.startsWith('es') ? 'Herramienta de Hash' : 'Hash Tool'}</Link>.
+          </p>
+        </section>
 
         <Share titleKey="csvjson.title" path="/csv-json" />
       </div>

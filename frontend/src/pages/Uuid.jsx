@@ -17,7 +17,7 @@ function genUuid() {
 }
 
 export default function Uuid() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [count, setCount] = useState(1);
   const [uppercase, setUppercase] = useState(false);
   const [hyphens, setHyphens] = useState(true);
@@ -51,17 +51,35 @@ export default function Uuid() {
   return (
     <>
       <SEO
-        title={t("uuid.title")}
-        description={t("uuid.description")}
+        title={lang.startsWith('es') ? 'Generador de UUID v4 Online – Toolsy' : 'Generate UUID v4 Online – Toolsy'}
+        description={lang.startsWith('es') ? 'Genera UUID v4 online. Crea uno o varios UUID, en mayúsculas o sin guiones. 100% en tu navegador.' : 'Generate UUID v4 online. Create one or many UUIDs, uppercase or no hyphens. 100% client-side.'}
         path="/uuid"
         image="https://toolsykit.vercel.app/og-uuid.png"
         jsonLd={{
           "@context": "https://schema.org",
-          "@type": "SoftwareApplication",
-          "name": t("uuid.title"),
-          "applicationCategory": "DeveloperApplication",
-          "operatingSystem": "Web",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          "@graph": [
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": lang.startsWith('es') ? 'Inicio' : 'Home', "item": "https://toolsykit.vercel.app/" },
+                { "@type": "ListItem", "position": 2, "name": lang.startsWith('es') ? 'Generador de UUID' : 'UUID Generator', "item": "https://toolsykit.vercel.app/uuid" }
+              ]
+            },
+            {
+              "@type": "SoftwareApplication",
+              "name": lang.startsWith('es') ? 'Generador de UUID' : 'UUID Generator',
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "Web",
+              "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+            },
+            {
+              "@type": "FAQPage",
+              "mainEntity": [
+                { "@type": "Question", "name": lang.startsWith('es') ? '¿Son suficientemente únicos estos UUID?' : 'Are these UUIDs unique enough?', "acceptedAnswer": { "@type": "Answer", "text": lang.startsWith('es') ? 'UUID v4 usa 122 bits de aleatoriedad; las colisiones son extremadamente improbables.' : 'UUID v4 uses 122 bits of randomness; collisions are astronomically unlikely.' } },
+                { "@type": "Question", "name": lang.startsWith('es') ? '¿Puedo generarlos sin guiones o en mayúsculas?' : 'Can I generate them without hyphens or in uppercase?', "acceptedAnswer": { "@type": "Answer", "text": lang.startsWith('es') ? 'Sí. Activa las opciones para quitar guiones y/o convertir a mayúsculas.' : 'Yes. Toggle the options to remove hyphens and/or convert to uppercase.' } }
+              ]
+            }
+          ]
         }}
       />
       <div className="space-y-6">
@@ -113,6 +131,21 @@ export default function Uuid() {
           </div>
         </div>
         <Share titleKey="uuid.title" path="/uuid" />
+        <section className="card p-4 space-y-2">
+          <h2 className="font-semibold">{lang.startsWith('es') ? '¿Qué es un UUID v4?' : 'What is a UUID v4?'}</h2>
+          <p className="text-sm muted">
+            {lang.startsWith('es')
+              ? 'Un UUID (Identificador Único Universal) v4 es un identificador aleatorio de 128 bits usado para referenciar objetos de forma única. Este generador usa la Web Crypto API para aleatoriedad de alta calidad.'
+              : 'A UUID (Universally Unique Identifier) v4 is a 128‑bit random identifier often used to uniquely reference objects. This generator uses the Web Crypto API for high‑quality randomness.'}
+          </p>
+          <p className="text-sm">
+            {lang.startsWith('es') ? 'Ver también: ' : 'See also: '}
+            <a className="underline" href="/hash">{lang.startsWith('es') ? 'Herramienta de Hash' : 'Hash Tool'}</a>
+            {' '}
+            {lang.startsWith('es') ? 'y ' : 'and '}
+            <a className="underline" href="/json-formatter">{lang.startsWith('es') ? 'Formateador JSON' : 'JSON Formatter'}</a>.
+          </p>
+        </section>
       </div>
     </>
   );

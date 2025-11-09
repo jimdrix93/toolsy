@@ -4,6 +4,7 @@ import Share from "../components/Share";
 import { track } from "../lib/analytics";
 import { useToast } from "../components/Toast";
 import { useI18n } from "../i18n";
+import { Link } from "react-router-dom";
 
 function sortObjectKeysDeep(value) {
   if (Array.isArray(value)) return value.map(sortObjectKeysDeep);
@@ -19,7 +20,7 @@ function sortObjectKeysDeep(value) {
 }
 
 export default function JsonFormatter() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const { show } = useToast();
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
@@ -121,17 +122,35 @@ export default function JsonFormatter() {
   return (
     <>
       <SEO
-        title={t("json.title")}
-        description={t("json.description")}
+        title={lang.startsWith('es') ? "Formateador JSON Online – Toolsy" : "JSON Formatter Online – Toolsy"}
+        description={lang.startsWith('es') ? "Formatea y valida JSON online. Embellece, minifica, ordena claves, copia y descarga. 100% en tu navegador." : "JSON formatter and validator online. Beautify, minify, sort keys, copy and download. 100% client-side."}
         path="/json-formatter"
         image="https://toolsykit.vercel.app/og-json.png"
         jsonLd={{
           "@context": "https://schema.org",
-          "@type": "SoftwareApplication",
-          "name": t("json.title"),
-          "applicationCategory": "DeveloperApplication",
-          "operatingSystem": "Web",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          "@graph": [
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": lang.startsWith('es') ? "Inicio" : "Home", "item": "https://toolsykit.vercel.app/" },
+                { "@type": "ListItem", "position": 2, "name": lang.startsWith('es') ? "Formateador JSON" : "JSON Formatter", "item": "https://toolsykit.vercel.app/json-formatter" }
+              ]
+            },
+            {
+              "@type": "SoftwareApplication",
+              "name": lang.startsWith('es') ? "Formateador JSON" : "JSON Formatter",
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "Web",
+              "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+            },
+            {
+              "@type": "FAQPage",
+              "mainEntity": [
+                { "@type": "Question", "name": lang.startsWith('es') ? "¿Se sube mi JSON a un servidor?" : "Is my JSON uploaded to a server?", "acceptedAnswer": { "@type": "Answer", "text": lang.startsWith('es') ? "No. Todo se ejecuta localmente en tu navegador (lado del cliente)." : "No. Everything runs locally in your browser (client-side)." } },
+                { "@type": "Question", "name": lang.startsWith('es') ? "¿Puedo minificar JSON para producción?" : "Can I minify JSON for production?", "acceptedAnswer": { "@type": "Answer", "text": lang.startsWith('es') ? "Sí. Usa Minificar para quitar espacios y obtener una cadena compacta." : "Yes. Use the Minify action to remove whitespace and get a compact string." } }
+              ]
+            }
+          ]
         }}
       />
       <div className="relative z-0 space-y-6">
@@ -258,6 +277,24 @@ export default function JsonFormatter() {
             </li>
           </ul>
         </aside>
+
+        <section className="card p-4 space-y-2">
+          <h2 className="font-semibold">
+            {lang.startsWith('es') ? '¿Qué es un formateador JSON?' : 'What is a JSON formatter?'}
+          </h2>
+          <p className="text-sm muted">
+            {lang.startsWith('es')
+              ? 'Un formateador (o embellecedor) de JSON valida y hace legible el JSON: añade indentación y puede ordenar claves. Esta herramienta funciona 100% en tu navegador; tus datos no salen del dispositivo.'
+              : 'A JSON formatter (or beautifier) validates and pretty‑prints JSON for readability. This tool runs entirely in your browser; your data never leaves your device.'}
+          </p>
+          <p className="text-sm">
+            {lang.startsWith('es') ? 'Ver también: ' : 'See also: '}
+            <Link className="underline" to="/uuid">{lang.startsWith('es') ? 'Generador de UUID' : 'UUID Generator'}</Link>
+            {' '}
+            {lang.startsWith('es') ? 'y ' : 'and '}
+            <Link className="underline" to="/hash">{lang.startsWith('es') ? 'Herramienta de Hash' : 'Hash Tool'}</Link>.
+          </p>
+        </section>
 
         <Share titleKey="json.title" path="/json-formatter" />
       </div>

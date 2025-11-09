@@ -36,6 +36,14 @@ export default function Home() {
               "name": "Toolsy",
               "url": "https://toolsykit.vercel.app",
               "logo": "https://toolsykit.vercel.app/logo-512.png"
+            },
+            {
+              "@type": "FAQPage",
+              "mainEntity": [
+                { "@type": "Question", "name": "Is my data processed locally?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Toolsy processes everything locally in your browser (client-side)." } },
+                { "@type": "Question", "name": "Does it work offline?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. As a PWA, you can install it and many tools work offline once cached." } },
+                { "@type": "Question", "name": "Do you use tracking cookies?", "acceptedAnswer": { "@type": "Answer", "text": "No. We use privacy-friendly analytics without cookies and no personal data." } }
+              ]
             }
           ]
         }}
