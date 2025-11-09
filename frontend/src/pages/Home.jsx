@@ -62,6 +62,23 @@ export default function Home() {
           ))}
         </div>
       </div>
+      <section className="mt-8 card p-4">
+        <h2 className="font-semibold mb-2">FAQ</h2>
+        <div className="space-y-2 text-sm">
+          <div>
+            <p className="font-medium">¿Mis datos se suben a algún servidor? / Are my data uploaded?</p>
+            <p className="muted">No. Todo se procesa localmente en tu navegador (client‑side). / No. Everything runs locally in your browser (client‑side).</p>
+          </div>
+          <div>
+            <p className="font-medium">¿Funciona offline? / Does it work offline?</p>
+            <p className="muted">Sí, como PWA puedes instalarla y muchas herramientas funcionan sin conexión tras la primera carga. / Yes, as a PWA you can install it and many tools work offline once cached.</p>
+          </div>
+          <div>
+            <p className="font-medium">¿Usáis cookies de seguimiento? / Do you use tracking cookies?</p>
+            <p className="muted">No. Usamos analítica respetuosa sin cookies ni datos personales. / No. We use privacy‑friendly analytics without cookies or personal data.</p>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

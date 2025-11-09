@@ -2,10 +2,12 @@ import { Helmet } from "@dr.pogodin/react-helmet";
 import { useMemo } from "react";
 
 const SITE_NAME = "Toolsy";
-const DEFAULT_IMAGE = "/og-image.png";
+const DEFAULT_IMAGE = "/og-default.png";
 
 export default function SEO({ title, description = "Small, fast, privacy-friendly online utilities.", path = "/", image = DEFAULT_IMAGE, jsonLd }) {
   const origin = useMemo(() => {
+    const fromEnv = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_SITE_URL) ? import.meta.env.VITE_SITE_URL : null;
+    if (fromEnv) return fromEnv.replace(/\/$/, '');
     if (typeof window !== "undefined" && window.location?.origin) return window.location.origin;
     return "https://toolsykit.vercel.app";
   }, []);
