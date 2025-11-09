@@ -2,11 +2,14 @@ import { Helmet } from "@dr.pogodin/react-helmet";
 import { useMemo } from "react";
 
 const SITE_NAME = "Toolsy";
-const ORIGIN = "https://toolsykit.vercel.app";
 const DEFAULT_IMAGE = "/og-image.png";
 
 export default function SEO({ title, description = "Small, fast, privacy-friendly online utilities.", path = "/", image = DEFAULT_IMAGE, jsonLd }) {
-  const url = useMemo(() => (path.startsWith("/") ? ORIGIN + path : ORIGIN + "/" + path), [path]);
+  const origin = useMemo(() => {
+    if (typeof window !== "undefined" && window.location?.origin) return window.location.origin;
+    return "https://toolsykit.vercel.app";
+  }, []);
+  const url = useMemo(() => (path.startsWith("/") ? origin + path : origin + "/" + path), [path, origin]);
   const fullTitle = title ? `${title} - ${SITE_NAME}` : SITE_NAME;
 
   return (
@@ -29,6 +32,12 @@ export default function SEO({ title, description = "Small, fast, privacy-friendl
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
+      {import.meta?.env?.VITE_TWITTER_HANDLE && (
+        <meta name="twitter:site" content={import.meta.env.VITE_TWITTER_HANDLE} />
+      )}
+      {import.meta?.env?.VITE_TWITTER_HANDLE && (
+        <meta name="twitter:creator" content={import.meta.env.VITE_TWITTER_HANDLE} />
+      )}
 
       {jsonLd && (
         <script type="application/ld+json">
@@ -38,4 +47,3 @@ export default function SEO({ title, description = "Small, fast, privacy-friendl
     </Helmet>
   );
 }
-
